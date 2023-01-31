@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>requester</h2>
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: green;
+            color: white;
+            margin: 10px 0;
+        }
+        
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+    </head>
+
+    <body>
+
+        <h2>Alert Messages</h2>
+
+        <!-- <p>Click on the "x" symbol to close the alert message.</p> -->
+        <div class="alert-section">
+            <!-- <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <strong>Notification!!!</strong> Indicates a dangerous or potentially negative action.
+        </div> -->
+        </div>
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+
+        <script>
+            const socket = io("https://barefoot-backend-development.herokuapp.com", {
+                auth: {
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlJFUVVFU1RFUkBnbWFpbC5jb20iLCJ1c2VySWQiOjQsImlhdCI6MTY1MDI3NzgwMCwiZXhwIjoxNjUwMzY0MjAwfQ.fcH7LqWA-OC0s6momBkHgp3qjXSWSY7DtltpDi3QzQY"
+                },
+            })
+
+            const notification = document.querySelector(".alert-section")
+            socket.on("notification", (data) => {
+                notification.innerHTML += `<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  ${data}
+</div>`
+            })
+
+            socket.on("authFailed", (data) => {
+                console.log(data)
+            })
+
+            socket.on("user", data => {
+                socket.emit("checkManager", data)
+            })
+        </script>
+    </body>
+
+</html>

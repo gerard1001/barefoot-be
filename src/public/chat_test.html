@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div id="error" , style="color: rgb(151, 4, 4)"></div>
+      <div id="status">0 user online</div>
+      <hr />
+      <hr />
+      <h2 style="margin: 10px 0px 20px 0px"><u>Messages</u></h2>
+      <div id="messages"></div>
+
+      <form>
+        <textarea
+          name="textarea"
+          id="textarea"
+          style="max-width: 600px; width: 90%; padding: 10px; height: 300px"
+        ></textarea>
+        <button id="sendButton" type="reset">Send</button>
+      </form>
+    </main>
+
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var socket = io('https://barefoot-backend-development.herokuapp.com/', {
+        autoconnect: true,
+        auth: {
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlJFUVVFU1RFUkBnbWFpbC5jb20iLCJ1c2VySWQiOjQsImlhdCI6MTY1MzkyODM5MCwiZXhwIjoxNjU0MDE0NzkwfQ.d4SLOLG1_7oM8alBtKn7Q2eeent0_2Ie26hdrs1p1WU'
+        }
+      });
+
+      socket.on('connect_error', (err) => {
+        document.getElementById('error').textContent = err;
+      });
+
+      socket.on('user:login', (data) => {
+        document.getElementById('error').textContent = data.message;
+      });
+
+      socket.on('user:online', (data) => {
+        let textContent = document.getElementById('status').textContent;
+        document.getElementById(
+          'status'
+        ).textContent = `${data.total} user online`;
+
+        for (const message of data.messages) {
+          document.getElementById('messages').innerHTML +=
+            '<hr \>' + '<br \>' + JSON.stringify(message) + '<hr \>';
+        }
+      });
+
+      socket.on('message:recieve', (data) => {
+        const content = document.getElementById('messages').textContent;
+        document.getElementById('messages').innerHTML +=
+          '<hr \>' + '<br \>' + JSON.stringify(data.message) + '<hr \>';
+      });
+
+      const textarea = document.getElementById('textarea');
+
+      document.getElementById('sendButton').addEventListener('click', (e) => {
+        e.preventDefault();
+        socket.emit('message:send', { message: textarea.value });
+      });
+    </script>
+  </body>
+</html>

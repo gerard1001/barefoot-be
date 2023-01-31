@@ -1,0 +1,40 @@
+version: '3.7'
+services: 
+
+
+  app:
+    image: cabal-bn-api
+    environment:
+      - NODE_ENV=docker
+      - DB_HOST=${DB_HOST}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DEV_DATABASE_URL=${DEV_DATABASE_URL}
+      - BASE_URL=${BASE_URL}
+    build:
+      context: .
+      args:
+        - PORT:${PORT}
+    volumes:
+      - ./:/src/app
+    container_name: cabal-backend
+    
+    depends_on:
+      - db
+
+    ports: 
+      - "5000:5000"
+    
+    restart: always
+    
+  db:
+
+    image: postgres:14.1-alpine
+    restart: always
+    environment: 
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    container_name: cabal_db
+  

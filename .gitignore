@@ -1,0 +1,13 @@
+node_modules
+
+build
+
+.env
+
+.nyc_output
+
+coverage
+
+yarn-error.log
+
+data
