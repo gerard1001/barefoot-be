@@ -12,57 +12,46 @@ const mode = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/../config/config.js`)[mode];
 const db = {};
 
-let sequelize;
+const sequelize = new Sequelize(config);
 /* istanbul ignore next */
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-  sequelize
-    .authenticate()
-    .then(async () => {
-      console.log(`${mode} DATABASE CONNECTION ESTABLISHED!`);
-    })
-    .catch((err) => {
-      /* istanbul ignore next */
-      console.log('Unable to connect to the database: ', err);
-    });
-} else {
-  /* istanbul ignore next */
-  sequelize = new Sequelize({
-    database: process.env.POSTGRES_DB,
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.POSTGRES_PORT,
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    },
-    logging: false
+// if (config.use_env_variable) {
+//   sequelize = new Sequelize(process.env[config.use_env_variable], config);
+//   sequelize
+//     .authenticate()
+//     .then(async () => {
+//       console.log(`${mode} DATABASE CONNECTION ESTABLISHED!`);
+//     })
+//     .catch((err) => {
+//       /* istanbul ignore next */
+//       console.log('Unable to connect to the database: ', err);
+//     });
+// } else {
+//   /* istanbul ignore next */
+//   sequelize = new Sequelize({
+//     database: process.env.POSTGRES_DB,
+//     username: process.env.POSTGRES_USER,
+//     password: process.env.POSTGRES_PASSWORD,
+//     host: process.env.DB_HOST,
+//     port: process.env.POSTGRES_PORT,
+//     dialect: 'postgres',
+//     dialectOptions: {
+//       ssl: {
+//         require: true,
+//         rejectUnauthorized: false
+//       }
+//     },
+//     logging: false
+//   });
+/* istanbul ignore next */
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log(`${mode} DATABASE CONNECTION ESTABLISHED!`);
+  })
+  .catch((err) => {
+    /* istanbul ignore next */
+    console.log('Unable to connect to the database: ', err);
   });
-  /* istanbul ignore next */
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log(`${mode} DATABASE CONNECTION ESTABLISHED!`);
-    })
-    .catch((err) => {
-      /* istanbul ignore next */
-      console.log('Unable to connect to the database: ', err);
-    });
-  /* istanbul ignore next */
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log(`${mode} DATABASE CONNECTION ESTABLISHED!`);
-    })
-    .catch((err) => {
-      /* istanbul ignore next */
-      console.log('Unable to connect to the database: ', err);
-    });
-}
 
 //
 

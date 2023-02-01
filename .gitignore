@@ -11,3 +11,6 @@ coverage
 yarn-error.log
 
 data
+
+# generate unwanted file
+FE_BASE_URL

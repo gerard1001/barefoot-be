@@ -98,6 +98,7 @@
     "sequelize-cli": "^6.4.1",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
+    "sqlite3": "^5.1.4",
     "swagger-ui-express": "^4.3.0",
     "uuidv4": "^6.2.12"
   },

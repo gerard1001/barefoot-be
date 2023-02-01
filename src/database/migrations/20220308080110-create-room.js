@@ -1,3 +1,5 @@
+const { getArray, setArray } = require('../../utils/database.utils');
+
 module.exports = {
   async up(queryInterface, DataTypes) {
     await queryInterface.createTable('Rooms', {
@@ -11,10 +13,14 @@ module.exports = {
         type: DataTypes.STRING
       },
       images: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('images'),
+        set: setArray('images')
       },
       imagesId: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('imagesId'),
+        set: setArray('imagesId')
       },
       details: {
         type: DataTypes.STRING
