@@ -4,6 +4,7 @@
 /* eslint-disable require-jsdoc */
 
 const { Model } = require('sequelize');
+const { setArray, getArray } = require('../../utils/database.utils');
 
 module.exports = (sequelize, DataTypes) => {
   class Accommodation extends Model {
@@ -26,33 +27,45 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(models.Trip, {
         foreignKey: 'accommodation_id',
-        onDelete:'CASCADE'
+        onDelete: 'CASCADE'
       });
       this.hasMany(models.Like, { foreignKey: 'accommodation_id' });
       this.hasMany(models.AccommodationComment, {
         foreignKey: 'accommodation_id'
       });
-      this.hasMany(models.arrivalLocation,{foreignKey:'accommodation_id'})
+      this.hasMany(models.arrivalLocation, { foreignKey: 'accommodation_id' });
     }
   }
   Accommodation.init(
     {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
-      images: DataTypes.ARRAY(DataTypes.STRING),
-      imagesId: DataTypes.ARRAY(DataTypes.STRING),
+      images: {
+        type: DataTypes.TEXT,
+        get: getArray('images'),
+        set: setArray('images')
+      },
+      imagesId: {
+        type: DataTypes.TEXT,
+        get: getArray('imagesId'),
+        set: setArray('imagesId')
+      },
       location_id: DataTypes.INTEGER,
-      services: DataTypes.ARRAY(DataTypes.STRING),
-      amenities: DataTypes.ARRAY(DataTypes.STRING),
+      services: {
+        type: DataTypes.TEXT,
+        get: getArray('services'),
+        set: setArray('services')
+      },
+      amenities: {
+        type: DataTypes.TEXT,
+        get: getArray('amenities'),
+        set: setArray('amenities')
+      },
       user_id: DataTypes.INTEGER,
       rates: {
         type: DataTypes.TEXT,
-        get: function () {
-          return JSON.parse(this.getDataValue('rates') || '[]');
-        },
-        set: function (value) {
-          return this.setDataValue('rates', JSON.stringify(value));
-        }
+        get: getArray('rates'),
+        set: setArray('rates')
       }
     },
     {

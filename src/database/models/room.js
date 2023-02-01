@@ -2,6 +2,7 @@
 /* eslint-disable valid-jsdoc */
 
 const { Model } = require('sequelize');
+const { getArray, setArray } = require('../../utils/database.utils');
 
 module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line require-jsdoc
@@ -27,8 +28,16 @@ module.exports = (sequelize, DataTypes) => {
   Room.init(
     {
       price: DataTypes.STRING,
-      images: DataTypes.ARRAY(DataTypes.STRING),
-      imagesId: DataTypes.ARRAY(DataTypes.STRING),
+      images: {
+        type: DataTypes.TEXT,
+        get: getArray('images'),
+        set: setArray('images')
+      },
+      imagesId: {
+        type: DataTypes.TEXT,
+        get: getArray('imagesId'),
+        set: setArray('imagesId')
+      },
       details: DataTypes.STRING,
       isBooked: {
         type: DataTypes.BOOLEAN,

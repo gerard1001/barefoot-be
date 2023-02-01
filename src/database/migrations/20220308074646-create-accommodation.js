@@ -1,4 +1,7 @@
 /* eslint-disable func-names */
+
+const { getArray, setArray } = require('../../utils/database.utils');
+
 /* eslint-disable object-shorthand */
 module.exports = {
   async up(queryInterface, DataTypes) {
@@ -16,31 +19,35 @@ module.exports = {
         type: DataTypes.STRING
       },
       images: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('images'),
+        set: setArray('images')
       },
       imagesId: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('imagesId'),
+        set: setArray('imagesId')
       },
       location_id: {
         type: DataTypes.INTEGER
       },
       services: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('services'),
+        set: setArray('services')
       },
       amenities: {
-        type: DataTypes.ARRAY(DataTypes.STRING)
+        type: DataTypes.TEXT,
+        get: getArray('amenities'),
+        set: setArray('amenities')
       },
       user_id: {
         type: DataTypes.INTEGER
       },
       rates: {
         type: DataTypes.TEXT,
-        get: function () {
-          return JSON.parse(this.getDataValue('rates') || '[]');
-        },
-        set: function (value) {
-          return this.setDataValue('rates', JSON.stringify(value));
-        }
+        get: getArray('rates'),
+        set: setArray('rates')
       },
       createdAt: {
         allowNull: false,
