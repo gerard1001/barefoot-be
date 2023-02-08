@@ -404,7 +404,7 @@ export default class UserController {
   async Logout(req, res) {
     try {
       const user = await this.userService.userLogout(
-        req.headers.authorization.split(' ')[1]
+        req.headers.authorization?.split(' ')[1]
       );
       /* istanbul ignore next */
       if (user.first_name) {

@@ -16,8 +16,8 @@ dotenv.config();
 /* istanbul ignore next */
 const host =
   process.env.NODE_ENV === 'production'
-    ? process.env.BASE_URL.split('https://')[1]
-    : process.env.BASE_URL.split('http://')[1];
+    ? process.env.BASE_URL?.split('https://')[1]
+    : process.env.BASE_URL?.split('http://')[1];
 
 const paths = {
   ...welcome,

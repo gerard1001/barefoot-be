@@ -10,7 +10,7 @@ import RoleService from '../services/role.service';
 export const checkLoggedInUser = async (req, res, next) => {
   try {
     const token =
-      req.headers.authorization && req.headers.authorization.split(' ')[1];
+      req.headers.authorization && req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(403).json({ message: 'User not logged in' });
     const blackListed = await Blacklist.findOne({ where: { token } });
     /* istanbul ignore next */
