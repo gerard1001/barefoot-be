@@ -41,31 +41,66 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
       images: {
-        type: DataTypes.TEXT,
-        get: getArray('images'),
-        set: setArray('images')
+        type: DataTypes.STRING,
+        get() {
+          const rawValue = this.getDataValue('images');
+          return rawValue ? JSON.parse(rawValue) : JSON.parse('[]');
+        },
+        set(value) {
+          this.setDataValue('images', JSON.parse(value));
+        }
+        // get: getArray('images'),
+        // set: setArray('images')
       },
       imagesId: {
         type: DataTypes.TEXT,
-        get: getArray('imagesId'),
-        set: setArray('imagesId')
+        get() {
+          const rawValue = this.getDataValue('imagesId');
+          return rawValue ? JSON.parse(rawValue) : JSON.parse('[]');
+        },
+        set(value) {
+          this.setDataValue('imagesId', JSON.parse(value));
+        }
+        // get: getArray('imagesId'),
+        // set: setArray('imagesId')
       },
       location_id: DataTypes.INTEGER,
       services: {
         type: DataTypes.TEXT,
-        get: getArray('services'),
-        set: setArray('services')
+        get() {
+          const rawValue = this.getDataValue('services');
+          return rawValue ? JSON.parse(rawValue) : JSON.parse('[]');
+        },
+        set(value) {
+          this.setDataValue('services', JSON.parse(value));
+        }
+        // get: getArray('services'),
+        // set: setArray('services')
       },
       amenities: {
         type: DataTypes.TEXT,
-        get: getArray('amenities'),
-        set: setArray('amenities')
+        get() {
+          const rawValue = this.getDataValue('amenities');
+          return rawValue ? JSON.parse(rawValue) : JSON.parse('[]');
+        },
+        set(value) {
+          this.setDataValue('amenities', JSON.parse(value));
+        }
+        // get: getArray('amenities'),
+        // set: setArray('amenities')
       },
       user_id: DataTypes.INTEGER,
       rates: {
         type: DataTypes.TEXT,
-        get: getArray('rates'),
-        set: setArray('rates')
+        get() {
+          const rawValue = this.getDataValue('rates');
+          return rawValue ? JSON.parse(rawValue) : JSON.parse('[]');
+        },
+        set(value) {
+          this.setDataValue('rates', JSON.parse(value));
+        }
+        // get: getArray('rates'),
+        // set: setArray('rates')
       }
     },
     {
