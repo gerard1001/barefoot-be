@@ -123,7 +123,6 @@ class tripController {
         };
         eventEmitter.emit('tripEmailNotification', {
           user: req.user,
-          //  ask @ gabin why he is serving his data
           multiCityTrip: multiCityTrip.updated[1][0],
           tripLocations: multiCityTrip.updateArrivalLocation,
           manager,

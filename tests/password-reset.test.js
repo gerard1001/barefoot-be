@@ -32,7 +32,7 @@ describe('TESTING PASSWORD RESET', () => {
     chai
       .request(app)
       .post(`/api/v1/users/forgot-password`)
-      .send({ email: 's.ishimwegabin@gmail.com' })
+      .send({ email: 's.gerardruta@gmail.com' })
       .end((err, res) => {
         expect(res).to.have.status([200]);
         done();

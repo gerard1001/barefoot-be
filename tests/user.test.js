@@ -224,7 +224,7 @@ describe('USER END-POINT TEST', () => {
     });
     it('should give an error on wrong route', async () => {
       const res = await request(app).post('/api/v1/users/log').send({
-        email: 'alain@gmail.com',
+        email: 'valentin@gmail.com',
         password: 'WORDPASS2'
       });
       expect(res.status).to.be.equal(404);
@@ -330,8 +330,8 @@ describe('USER END-POINT TEST', () => {
         .patch('/api/v1/users/profile')
         .set({ Authorization: `Bearer ${login.body.token}` })
         .set('content-type', 'multipart/form-data')
-        .field('first_name', 'ishimwe')
-        .field('last_name', 'gabin')
+        .field('first_name', 'ruta')
+        .field('last_name', 'gerard')
         .field('language', 'english')
         .field('gender', 'male')
         .field('occupation', 'technical engineer')

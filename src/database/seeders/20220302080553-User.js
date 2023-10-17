@@ -122,7 +122,7 @@ module.exports = {
           first_name: 'TESTER',
           last_name: 'TESTER',
           password: hashPassword('TESTER1cabal'),
-          email: 's.ishimwegabin@gmail.com',
+          email: 's.gerardruta@gmail.com',
           address: 'kigali',
           isVerified: false,
           profile_picture:
@@ -154,7 +154,7 @@ module.exports = {
           first_name: 'Tom',
           last_name: 'Jerry',
           password: hashPassword('MANAGER2gmail'),
-          email: 'gabinishimwe02@gmail.com',
+          email: 'manzigerard@gmail.com',
           isVerified: true,
           location_id: 3,
           profile_picture:

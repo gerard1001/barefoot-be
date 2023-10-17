@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
   res.status(404).json({ message: 'Route not found.' });
 });
 /* istanbul ignore next */
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 server.listen(port, () => {
   console.log('server up running on port ', port);
 });
